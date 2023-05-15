@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Converter</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url('https://melissamckinnon.files.wordpress.com/2012/10/driftaway_001weblogo.jpg');
+             background-size: cover;
+             background-repeat: no-repeat;
+             background-position: center;
+            font-family: 'Comic Sans MS', cursive;
+            padding: 20px;
+        }
+        .time-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+            width: 48%;
+            box-sizing: border-box;
+            display: inline-block;
+        }
+        .minutes-box { background-color: #763626; }
+        .seconds-box { background-color: #BBB6A5; }
+        .hours-box { background-color: #8C9491; }
+        .days-box { background-color: #336B87; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Time Converter</h1>
+        <hr>
+
+        <div class="time-box minutes-box">
+            <h4>Minutes to:</h4>
+            <input type="number" id="minutes" placeholder="Minutes" oninput="convert('minutes')">
+            <p id="minutesToSeconds"></p>
+            <p id="minutesToHours"></p>
+            <p id="minutesToDays"></p>
+        </div>
+
+        <div class="time-box seconds-box">
+            <h4>Seconds to:</h4>
+            <input type="number" id="seconds" placeholder="Seconds" oninput="convert('seconds')">
+            <p id="secondsToMinutes"></p>
+            <p id="secondsToHours"></p>
+            <p id="secondsToDays"></p>
+        </div>
+
+        <div class="time-box hours-box">
+            <h4>Hours to:</h4>
+            <input type="number" id="hours" placeholder="Hours" oninput="convert('hours')">
+            <p id="hoursToSeconds"></p>
+            <p id="hoursToMinutes"></p>
+            <p id="hoursToDays"></p>
+        </div>
+
+        <div class="time-box days-box">
+            <h4>Days to:</h4>
+            <input type="number" id="days" placeholder="Days" oninput="convert('days')">
+            <p id="daysToSeconds"></p>
+            <p id="daysToMinutes"></p>
+            <p id="daysToHours"></p>
+        </div>
+    </div>
+
+   <script>
+    function convert(unit) {
+        const value = Number(document.getElementById(unit).value);
+        switch (unit) {
+            case 'minutes':
+                document.getElementById(`${unit}ToSeconds`).textContent = `${value} ${unit} = ${value * getConversionFactor(unit, 'seconds')} seconds`;
+                document.getElementById(`${unit}ToHours`).textContent = `${value} ${unit} = ${value * getConversionFactor(unit, 'hours')} hours`;
+                document.getElementById(`${unit}ToDays`).textContent = `${value} ${unit} = ${value * getConversionFactor(unit, 'days')} days`;
+                break;
+            case 'seconds':
+                document.getElementById(`${unit}ToMinutes`).textContent = `${value} ${unit} = ${value * getConversionFactor(unit, 'minutes')} minutes`;
+                document.getElementById(`${unit}ToHours`).textContent = `${value} ${unit} = ${value * getConversionFactor(unit, 'hours')} hours`;
+                document.getElementById(`${unit}ToDays`).textContent = `${value} ${unit} = ${value * getConversionFactor(unit, 'days')} days`;
+                break;
+            case 'hours':
+                document.getElementById(`${unit}ToSeconds`).textContent = `${value} ${unit} = ${value * getConversionFactor(unit, 'seconds')} seconds`;
+                document.getElementById(`${unit}ToMinutes`).textContent = `${value} ${unit} = ${value * getConversionFactor(unit, 'minutes')} minutes`;
+                document.getElementById(`${unit}ToDays`).textContent = `${value} ${unit} = ${value * getConversionFactor(unit, 'days')} days`;
+                break;
+            case 'days':
+                document.getElementById(`${unit}ToSeconds`).textContent = `${value} ${unit} = ${value * getConversionFactor(unit, 'seconds')} seconds`;
+                document.getElementById(`${unit}ToMinutes`).textContent = `${value} ${unit} = ${value * getConversionFactor(unit, 'minutes')} minutes`;
+                document.getElementById(`${unit}ToHours`).textContent = `${value} ${unit} = ${value * getConversionFactor(unit, 'hours')} hours`;
+                break;
+            default:
+                break;
+        }
+    }
+
+    function getConversionFactor(fromUnit, toUnit) {
+        const conversionFactors = {
+            minutes: {
+                seconds: 60,
+                hours: 1 / 60,
+                days: 1 / 1440
+            },
+            seconds: {
+                minutes: 1 / 60,
+                hours: 1 / 3600,
+                days: 1 / 86400
+            },
+            hours: {
+                seconds: 3600,
+                minutes: 60,
+                days: 1 / 24
+            },
+            days: {
+                seconds: 86400,
+                minutes: 1440,
+                hours: 24
+            }
+        };
+
+        return conversionFactors[fromUnit][toUnit];
+    }
+</script>
+</body>
+</html>
+</body>
